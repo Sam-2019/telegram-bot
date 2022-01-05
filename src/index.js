@@ -38,7 +38,17 @@ let amount_pattern =
   /GHS ?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9].[0-9][0-9]/g;
 
 const withdrawal = (data) => {
-  console.log(data);
+  console.log({ Withdrawal: data });
+  let amounts = data.match(amount_pattern);
+  let withdrawal_amount = amounts[0];
+  let current_balance = amounts[1];
+  let fee_charged = amounts[3];
+  let trnx_id = data.match(trxn_id_pattern);
+
+  console.log({ withdrawal_amount: withdrawal_amount });
+  console.log({ current_balance: current_balance });
+  console.log({ fee_charged: fee_charged });
+  console.log({ trnx_id: trnx_id });
 };
 
 const receipt = (data) => {
