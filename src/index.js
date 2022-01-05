@@ -32,7 +32,19 @@ bot.command("getMember", (ctx) => {
   // console.log(ctx.message.text);
 });
 
-const check = () => {
+const withdrawal = (data) => {
+  console.log(data);
+};
+
+const receipt = (data) => {
+  console.log(data);
+};
+
+const purchase = () => {
+  console.log(data);
+};
+
+const check = (data) => {
   if (data.includes("Cash Out")) {
     return withdrawal(data);
   } else if (data.includes("Payment received")) {
