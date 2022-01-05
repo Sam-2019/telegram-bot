@@ -7,9 +7,7 @@ const { reply, fork } = Telegraf;
 
 const bot = new Telegraf(TOKEN);
 bot.launch();
-// bot.use(Telegraf.log());
-
-const sayYoMiddleware = fork((ctx) => ctx.reply("yo"));
+bot.use(Telegraf.log());
 
 bot.start((ctx) => {
   ctx.reply("Hello " + ctx.from.first_name + "!");
