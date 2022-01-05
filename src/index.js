@@ -32,6 +32,16 @@ bot.command("getMember", (ctx) => {
   // console.log(ctx.message.text);
 });
 
+const check = () => {
+  if (data.includes("Cash Out")) {
+    return withdrawal(data);
+  } else if (data.includes("Payment received")) {
+    return receipt(data);
+  } else {
+    return purchase(data);
+  }
+};
+
 bot.on("text", (ctx) => {
   const smsBody = ctx.message.text;
   check(smsBody);
