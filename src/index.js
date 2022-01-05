@@ -32,6 +32,11 @@ bot.command("getMember", (ctx) => {
   // console.log(ctx.message.text);
 });
 
+//regex
+let trxn_id_pattern = /\d{11}/g;
+let withdrawal_amount_pattern = /GHS ?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9].[0-9][0-9]/g;
+
+
 const withdrawal = (data) => {
   console.log(data);
 };
