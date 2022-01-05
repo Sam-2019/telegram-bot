@@ -34,7 +34,7 @@ bot.command("getMember", (ctx) => {
 
 //regex
 let trxn_id_pattern = /\d{11}/g;
-let withdrawal_amount_pattern =
+let amount_pattern =
   /GHS ?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9].[0-9][0-9]/g;
 
 const withdrawal = (data) => {
@@ -42,7 +42,17 @@ const withdrawal = (data) => {
 };
 
 const receipt = (data) => {
-  console.log(data);
+  console.log({ Receipt: data });
+  let amounts = data.match(amount_pattern);
+  let receipt_amount = amounts[0];
+  let current_balance = amounts[1];
+  let available_amount = amounts[2];
+  let trnx_id = data.match(trxn_id_pattern);
+
+  console.log({ receipt_amount: receipt_amount });
+  console.log({ current_balance: current_balance });
+  console.log({ available_amount: available_amount });
+  console.log({ trnx_id: trnx_id });
 };
 
 const purchase = (data) => {
