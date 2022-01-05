@@ -67,8 +67,14 @@ const receipt = (data) => {
 
 const purchase = (data) => {
   console.log({ Purchase: data });
+  let amounts = data.match(amount_pattern);
+  let purchase_amount = amounts[0];
+  let new_balance = amounts[1];
   let trnx_id = data.match(trxn_id_pattern);
-  console.log({ tranaction_id: trnx_id });
+
+  console.log({ purchase_amount: purchase_amount });
+  console.log({ new_balance: new_balance });
+  console.log({ trnx_id: trnx_id });
 };
 
 const check = (data) => {
