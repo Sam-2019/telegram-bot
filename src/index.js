@@ -75,11 +75,25 @@ const purchase = (data) => {
   console.log({ trnx_id: trnx_id[0] });
 };
 
+const send = (data) => {
+  console.log({ Purchase: data });
+  let amounts = data.match(amount_pattern);
+  let purchase_amount = amounts[0];
+  let new_balance = amounts[1];
+  let trnx_id = data.match(trxn_id_pattern);
+
+  console.log({ purchase_amount: purchase_amount });
+  console.log({ new_balance: new_balance });
+  console.log({ trnx_id: trnx_id[0] });
+};
+
 const check = (data) => {
   if (data.includes("Cash Out")) {
     return withdrawal(data);
   } else if (data.includes("Payment received") || data.includes("An amount")) {
     return receipt(data);
+  } else if (data.includes("Payment made")) {
+    return send(data);
   } else {
     return purchase(data);
   }
