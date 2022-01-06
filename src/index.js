@@ -87,12 +87,15 @@ const send = (data) => {
   let purchase_amount = amounts[0];
   let new_balance = amounts[1];
   let trnx_id = data.match(trxn_id_pattern);
-
+  let to = String(data.match(to_pattern)).substring(7);
+  let reference = String(data.match(reference_pattern))
 
   console.log({ purchase_amount: purchase_amount });
   console.log({ new_balance: new_balance });
   console.log({ trnx_id: trnx_id[0] });
-
+  console.log({ to: to });
+  console.log({ trnx_id: trnx_id[0] });
+  console.log({ reference: reference });
 };
 
 const check = (data) => {
