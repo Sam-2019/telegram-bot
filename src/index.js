@@ -60,13 +60,13 @@ const receipt = (data) => {
   let current_balance = amounts[1];
   let available_amount = amounts[2];
   let trnx_id = data.match(trxn_id_pattern);
-
+  let from = String(data.match(from_pattern)).substring(5);
 
   console.log({ receipt_amount: receipt_amount });
   console.log({ current_balance: current_balance });
   console.log({ available_amount: available_amount });
   console.log({ trnx_id: trnx_id });
-
+  console.log({ from: from });
 };
 
 const purchase = (data) => {
