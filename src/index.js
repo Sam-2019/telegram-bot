@@ -31,9 +31,13 @@ bot.command("getMember", (ctx) => {
 });
 
 //regex
-let trxn_id_pattern = /\d{11}/g;
-let amount_pattern =
-  /GHS ?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9].[0-9][0-9]/g;
+let trxn_id_pattern = /Transaction I(d|D): d+/gm;
+let amount_pattern = /GHS ?[0-9]+.[0-9]+?./gm || /GHS.?[0-9]+(.([0-9]+))/gi;
+let from_pattern = /.[0-9]+.?from.?([a-z]+.?[a-z]+.?[a-z]+.?[a-z]+.?[a-z]+.?[a-z]+)/gim;
+let to_pattern = /.[0-9]+.?to.?([a-z]+.?[a-z]+.?[a-z]+.?[a-z]+.?[a-z]+.)/gim;
+let reference = /(Reference:.?[a-z]*.?[a-z]*.?[a-z]*.?[a-z]*.?[a-z]*.?)./gim;
+let at_pattern = /at ([0-9]*-[0-9]*-[0-9]* )/gim;
+let time = /(([0-9]+:[0-9]+:[0-9]+).)/gim;
 
 const withdrawal = (data) => {
   console.log({ Withdrawal: data });
