@@ -33,9 +33,9 @@ bot.command("getMember", (ctx) => {
 //regex
 let trxn_id_pattern = /Transaction I(d|D): d+/gm;
 let amount_pattern = /GHS ?[0-9]+.[0-9]+?./gm || /GHS.?[0-9]+(.([0-9]+))/gi;
-let from_pattern = /.[0-9]+.?from.?([a-z]+.?[a-z]+.?[a-z]+.?[a-z]+.?[a-z]+.?[a-z]+)/gim;
+let from_pattern = /from.?([a-z]+.?[a-z]+.?[a-z]+.?[a-z]+.?[a-z]+.?[a-z]+)/gim;
 let to_pattern = /.[0-9]+.?to.?([a-z]+.?[a-z]+.?[a-z]+.?[a-z]+.?[a-z]+.)/gim;
-let reference = /(Reference:.?[a-z]*.?[a-z]*.?[a-z]*.?[a-z]*.?[a-z]*.?)./gim;
+let reference_pattern = /(Reference:.?[a-z]*.?[a-z]*.?[a-z]*.?[a-z]*.?[a-z]*.?)./gim;
 let at_pattern = /at ([0-9]*-[0-9]*-[0-9]* )/gim;
 let time = /(([0-9]+:[0-9]+:[0-9]+).)/gim;
 
@@ -61,10 +61,12 @@ const receipt = (data) => {
   let available_amount = amounts[2];
   let trnx_id = data.match(trxn_id_pattern);
 
+
   console.log({ receipt_amount: receipt_amount });
   console.log({ current_balance: current_balance });
   console.log({ available_amount: available_amount });
   console.log({ trnx_id: trnx_id });
+
 };
 
 const purchase = (data) => {
@@ -80,15 +82,17 @@ const purchase = (data) => {
 };
 
 const send = (data) => {
-  console.log({ Purchase: data });
+  console.log({ Send: data });
   let amounts = data.match(amount_pattern);
   let purchase_amount = amounts[0];
   let new_balance = amounts[1];
   let trnx_id = data.match(trxn_id_pattern);
 
+
   console.log({ purchase_amount: purchase_amount });
   console.log({ new_balance: new_balance });
   console.log({ trnx_id: trnx_id[0] });
+
 };
 
 const check = (data) => {
@@ -96,7 +100,10 @@ const check = (data) => {
     return withdrawal(data);
   } else if (data.includes("Payment received") || data.includes("An amount")) {
     return receipt(data);
-  } else if (data.includes("Payment made")) {
+  } else if (
+    data.includes("Payment made") ||
+    data.includes("INTEROPERABILITY PUSH")
+  ) {
     return send(data);
   } else {
     return purchase(data);
