@@ -40,7 +40,7 @@ const withdrawal = (data) => {
   let amounts = data.match(amount_pattern);
   let withdrawal_amount = amounts[0];
   let current_balance = amounts[1];
-  let fee_charged = amounts[3];
+  let fee_charged = amounts[2];
   let trnx_id = data.match(trxn_id_pattern);
 
   console.log({ withdrawal_amount: withdrawal_amount });
@@ -72,13 +72,13 @@ const purchase = (data) => {
 
   console.log({ purchase_amount: purchase_amount });
   console.log({ new_balance: new_balance });
-  console.log({ trnx_id: trnx_id });
+  console.log({ trnx_id: trnx_id[0] });
 };
 
 const check = (data) => {
   if (data.includes("Cash Out")) {
     return withdrawal(data);
-  } else if (data.includes("Payment received")) {
+  } else if (data.includes("Payment received") || data.includes("An amount")) {
     return receipt(data);
   } else {
     return purchase(data);
@@ -87,7 +87,12 @@ const check = (data) => {
 
 bot.on("text", (ctx) => {
   const smsBody = ctx.message.text;
-  check(smsBody);
+
+  if (smsBody.length >= 113) {
+    return check(smsBody);
+  }
+
+  return ctx.reply("No message");
 });
 
 process.once("SIGINT", () => bot.stop("SIGINT"));
