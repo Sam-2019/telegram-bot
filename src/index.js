@@ -7,7 +7,7 @@ const { reply, fork } = Telegraf;
 
 const bot = new Telegraf(TOKEN);
 bot.launch();
-bot.use(Telegraf.log());
+// bot.use(Telegraf.log());
 
 bot.start((ctx) => {
   ctx.reply("Hello " + ctx.from.first_name + "!");
@@ -31,26 +31,32 @@ bot.command("getMember", (ctx) => {
 });
 
 //regex
-let trxn_id_pattern = /Transaction I(d|D): d+/gm;
+let trxn_id_pattern = /Transaction I(d|D): \d+/gm;
 let amount_pattern = /GHS ?[0-9]+.[0-9]+?./gm || /GHS.?[0-9]+(.([0-9]+))/gi;
-let from_pattern = /from.?([a-z]+.?[a-z]+.?[a-z]+.?[a-z]+.?[a-z]+.?[a-z]+)/gim;
-let to_pattern = /.[0-9]+.?to.?([a-z]+.?[a-z]+.?[a-z]+.?[a-z]+.?[a-z]+.)/gim;
-let reference_pattern = /(Reference:.?[a-z]*.?[a-z]*.?[a-z]*.?[a-z]*.?[a-z]*.?)./gim;
-let at_pattern = /at ([0-9]*-[0-9]*-[0-9]* )/gim;
-let time = /(([0-9]+:[0-9]+:[0-9]+).)/gim;
+let from_pattern =
+  /.[0-9]+.?from.?([a-z]+.?[a-z]+.?[a-z]+.?[a-z]+.?[a-z]+.?[a-z]+)/gim;
+let to_pattern = /\.[0-9]+.?to.?\-?\W?(\w+.?\w+.?\w+.?[A-Zz]+.?)?/gim;
+let reference_pattern = /Reference:.?\-?(\w+)?.?(\w+)?[0-9]*?-?([0-9]+)?/gim;
+let date_pattern = /at ([0-9]*\-[0-9]*\-[0-9]* )/gim;
+let time_pattern = /(([0-9]+\:[0-9]+\:[0-9]+)\.)/gim;
+
+let messsage_pattern =
+  /Message:Interest.?[a-z]+.?(\w+)?.(\w+)?.(\w+)?.([0-9]+)?/g;
 
 const withdrawal = (data) => {
   console.log({ Withdrawal: data });
+  let trnx_id = data.match(trxn_id_pattern);
   let amounts = data.match(amount_pattern);
   let withdrawal_amount = amounts[0];
   let current_balance = amounts[1];
   let fee_charged = amounts[2];
-  let trnx_id = data.match(trxn_id_pattern);
+  let payment_to = data.match(to_pattern);
 
+  console.log({ trnx_id: String(trnx_id[0]).slice(16) });
   console.log({ withdrawal_amount: withdrawal_amount });
   console.log({ current_balance: current_balance });
   console.log({ fee_charged: fee_charged });
-  console.log({ trnx_id: trnx_id });
+  console.log({ to: String(payment_to).slice(7) });
 };
 
 const receipt = (data) => {
@@ -58,44 +64,68 @@ const receipt = (data) => {
   let amounts = data.match(amount_pattern);
   let receipt_amount = amounts[0];
   let current_balance = amounts[1];
-  let available_amount = amounts[2];
+  let available_amount = amounts[2] || null;
   let trnx_id = data.match(trxn_id_pattern);
-  let from = String(data.match(from_pattern)).substring(5);
+  let from = String(data.match(from_pattern)).substring(9);
+  let message = data.match(messsage_pattern);
 
   console.log({ receipt_amount: receipt_amount });
   console.log({ current_balance: current_balance });
   console.log({ available_amount: available_amount });
-  console.log({ trnx_id: trnx_id });
+  console.log({ trnx_id: String(trnx_id[0]).slice(16) });
   console.log({ from: from });
+  console.log({ message: message ? String(message).substring(8) : null });
 };
 
 const purchase = (data) => {
   console.log({ Purchase: data });
+  let trnx_id = data.match(trxn_id_pattern);
   let amounts = data.match(amount_pattern);
   let purchase_amount = amounts[0];
   let new_balance = amounts[1];
-  let trnx_id = data.match(trxn_id_pattern);
+  let fee_charged = amounts[2];
+  let payment_to = data.match(to_pattern);
+  let reference = data.match(reference_pattern);
+  let time = data.match(time_pattern) || null;
+  let date = data.match(date_pattern) || null;
 
+  console.log({ trnx_id: String(trnx_id[0]).slice(16) });
   console.log({ purchase_amount: purchase_amount });
-  console.log({ new_balance: new_balance });
-  console.log({ trnx_id: trnx_id[0] });
+  console.log({ current_balance: new_balance });
+  console.log({ fee_charged: fee_charged });
+  console.log({ to: String(payment_to).slice(7) });
+  console.log({ reference: String(reference).substring(11) });
+  console.log({ time: String(time) });
+  console.log({ date: String(date).substring(3) });
 };
 
 const send = (data) => {
   console.log({ Send: data });
-  let amounts = data.match(amount_pattern);
-  let purchase_amount = amounts[0];
-  let new_balance = amounts[1];
   let trnx_id = data.match(trxn_id_pattern);
-  let to = String(data.match(to_pattern)).substring(7);
-  let reference = String(data.match(reference_pattern))
+  let amounts = data.match(amount_pattern);
+  let send_amount = amounts[0];
+  let current_balance = amounts[1];
+  let available_balance = amounts[2];
+  let fee_charged = amounts[3];
+  let payment_to = data.match(to_pattern);
+  let reference = data.match(reference_pattern);
+  let time = data.match(time_pattern) || null;
+  let date = data.match(date_pattern) || null;
 
-  console.log({ purchase_amount: purchase_amount });
-  console.log({ new_balance: new_balance });
-  console.log({ trnx_id: trnx_id[0] });
-  console.log({ to: to });
-  console.log({ trnx_id: trnx_id[0] });
-  console.log({ reference: reference });
+  console.log({ trnx_id: String(trnx_id[0]).slice(16) });
+  console.log({ send_amount: send_amount });
+  console.log({ current_balance: current_balance });
+  console.log({ available_balance: available_balance });
+  console.log({ fee_charged: fee_charged });
+  console.log({ reference: String(reference).substring(11) });
+  console.log({ time: String(time) });
+  console.log({ date: String(date).substring(3) });
+
+  if (String(payment_to).includes("-")) {
+    return console.log({ to: String(payment_to).slice(9) });
+  }
+
+  return console.log({ to: String(payment_to).slice(7) });
 };
 
 const check = (data) => {
@@ -116,7 +146,9 @@ const check = (data) => {
 bot.on("text", (ctx) => {
   const smsBody = ctx.message.text;
 
-  if (smsBody.length >= 113) {
+  console.log(smsBody.length);
+
+  if (smsBody.length >= 112) {
     return check(smsBody);
   }
 
