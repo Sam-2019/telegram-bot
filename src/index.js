@@ -45,16 +45,18 @@ let messsage_pattern =
 
 const withdrawal = (data) => {
   console.log({ Withdrawal: data });
+  let trnx_id = data.match(trxn_id_pattern);
   let amounts = data.match(amount_pattern);
   let withdrawal_amount = amounts[0];
   let current_balance = amounts[1];
   let fee_charged = amounts[2];
-  let trnx_id = data.match(trxn_id_pattern);
+  let payment_to = data.match(to_pattern);
 
+  console.log({ trnx_id: String(trnx_id[0]).slice(16) });
   console.log({ withdrawal_amount: withdrawal_amount });
   console.log({ current_balance: current_balance });
   console.log({ fee_charged: fee_charged });
-  console.log({ trnx_id: trnx_id });
+  console.log({ to: String(payment_to).slice(7) });
 };
 
 const receipt = (data) => {
