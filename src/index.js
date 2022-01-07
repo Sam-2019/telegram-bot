@@ -40,6 +40,9 @@ let reference_pattern = /Reference:.?\-?(\w+)?.?(\w+)?[0-9]*?-?([0-9]+)?/gim;
 let date_pattern = /at ([0-9]*\-[0-9]*\-[0-9]* )/gim;
 let time_pattern = /(([0-9]+\:[0-9]+\:[0-9]+)\.)/gim;
 
+let messsage_pattern =
+  /Message:Interest.?[a-z]+.?(\w+)?.(\w+)?.(\w+)?.([0-9]+)?/g;
+
 const withdrawal = (data) => {
   console.log({ Withdrawal: data });
   let amounts = data.match(amount_pattern);
@@ -59,15 +62,17 @@ const receipt = (data) => {
   let amounts = data.match(amount_pattern);
   let receipt_amount = amounts[0];
   let current_balance = amounts[1];
-  let available_amount = amounts[2];
+  let available_amount = amounts[2] || null;
   let trnx_id = data.match(trxn_id_pattern);
-  let from = String(data.match(from_pattern)).substring(5);
+  let from = String(data.match(from_pattern)).substring(9);
+  let message = data.match(messsage_pattern);
 
   console.log({ receipt_amount: receipt_amount });
   console.log({ current_balance: current_balance });
   console.log({ available_amount: available_amount });
-  console.log({ trnx_id: trnx_id });
+  console.log({ trnx_id: String(trnx_id[0]).slice(16) });
   console.log({ from: from });
+  console.log({ message: message ? String(message).substring(8) : null });
 };
 
 const purchase = (data) => {
@@ -139,7 +144,7 @@ const check = (data) => {
 bot.on("text", (ctx) => {
   const smsBody = ctx.message.text;
 
-  console.log(smsBody.length)
+  console.log(smsBody.length);
 
   if (smsBody.length >= 112) {
     return check(smsBody);
