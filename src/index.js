@@ -146,8 +146,6 @@ const check = (data) => {
 bot.on("text", (ctx) => {
   const smsBody = ctx.message.text;
 
-  console.log(smsBody.length);
-
   if (smsBody.length >= 112) {
     return check(smsBody);
   }
