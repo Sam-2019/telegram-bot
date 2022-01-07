@@ -72,14 +72,24 @@ const receipt = (data) => {
 
 const purchase = (data) => {
   console.log({ Purchase: data });
+  let trnx_id = data.match(trxn_id_pattern);
   let amounts = data.match(amount_pattern);
   let purchase_amount = amounts[0];
   let new_balance = amounts[1];
-  let trnx_id = data.match(trxn_id_pattern);
+  let fee_charged = amounts[2];
+  let payment_to = data.match(to_pattern);
+  let reference = data.match(reference_pattern);
+  let time = data.match(time_pattern) || null;
+  let date = data.match(date_pattern) || null;
 
+  console.log({ trnx_id: String(trnx_id[0]).slice(16) });
   console.log({ purchase_amount: purchase_amount });
   console.log({ new_balance: new_balance });
-  console.log({ trnx_id: trnx_id[0] });
+  console.log({ fee_charged: fee_charged });
+  console.log({ to: String(payment_to).slice(7) });
+  console.log({ reference: String(reference).substring(11) });
+  console.log({ time: String(time) });
+  console.log({ date: String(date).substring(3) });
 };
 
 const send = (data) => {
