@@ -84,7 +84,7 @@ const purchase = (data) => {
 
   console.log({ trnx_id: String(trnx_id[0]).slice(16) });
   console.log({ purchase_amount: purchase_amount });
-  console.log({ new_balance: new_balance });
+  console.log({ current_balance: new_balance });
   console.log({ fee_charged: fee_charged });
   console.log({ to: String(payment_to).slice(7) });
   console.log({ reference: String(reference).substring(11) });
@@ -139,7 +139,9 @@ const check = (data) => {
 bot.on("text", (ctx) => {
   const smsBody = ctx.message.text;
 
-  if (smsBody.length >= 113) {
+  console.log(smsBody.length)
+
+  if (smsBody.length >= 112) {
     return check(smsBody);
   }
 
