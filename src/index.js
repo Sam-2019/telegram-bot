@@ -31,15 +31,22 @@ bot.command("getMember", (ctx) => {
 });
 
 //regex
+//eslint-disable-next-line
 let trxn_id_pattern = /Transaction I(d|D): \d+/gm;
+//eslint-disable-next-line
 let amount_pattern = /GHS ?[0-9]+.[0-9]+?./gm || /GHS.?[0-9]+(.([0-9]+))/gi;
+//eslint-disable-next-line
 let from_pattern =
   /.[0-9]+.?from.?([a-z]+.?[a-z]+.?[a-z]+.?[a-z]+.?[a-z]+.?[a-z]+)/gim;
+//eslint-disable-next-line
 let to_pattern = /\.[0-9]+.?to.?\-?\W?(\w+.?\w+.?\w+.?[A-Zz]+.?)?/gim;
+//eslint-disable-next-line
 let reference_pattern = /Reference:.?\-?(\w+)?.?(\w+)?[0-9]*?-?([0-9]+)?/gim;
+//eslint-disable-next-line
 let date_pattern = /at ([0-9]*\-[0-9]*\-[0-9]* )/gim;
+//eslint-disable-next-line
 let time_pattern = /(([0-9]+\:[0-9]+\:[0-9]+)\.)/gim;
-
+//eslint-disable-next-line
 let messsage_pattern =
   /Message:Interest.?[a-z]+.?(\w+)?.(\w+)?.(\w+)?.([0-9]+)?/g;
 
@@ -57,6 +64,16 @@ const withdrawal = (data) => {
   console.log({ current_balance: current_balance });
   console.log({ fee_charged: fee_charged });
   console.log({ to: String(payment_to).slice(7) });
+
+  // return {
+  //   Withdrawal: data,
+
+  //   trnx_id: String(trnx_id[0]).slice(16),
+  //   withdrawal_amount: withdrawal_amount,
+  //   current_balance: current_balance,
+  //   fee_charged: fee_charged,
+  //   to: String(payment_to).slice(7),
+  // };
 };
 
 const receipt = (data) => {
@@ -73,8 +90,19 @@ const receipt = (data) => {
   console.log({ current_balance: current_balance });
   console.log({ available_amount: available_amount });
   console.log({ trnx_id: String(trnx_id[0]).slice(16) });
-  console.log({ from: from });
+  console.log({ from: String(from).substring(9) });
   console.log({ message: message ? String(message).substring(8) : null });
+
+  // return {
+  //   Receipt: data,
+
+  //   receipt_amount: receipt_amount,
+  //   current_balance: current_balance,
+  //   available_amount: available_amount,
+  //   trnx_id: String(trnx_id[0]).slice(16),
+  //   from: String(from).substring(9),
+  //   message: message ? String(message).substring(8) : null,
+  // };
 };
 
 const purchase = (data) => {
@@ -97,6 +125,19 @@ const purchase = (data) => {
   console.log({ reference: String(reference).substring(11) });
   console.log({ time: String(time) });
   console.log({ date: String(date).substring(3) });
+
+  // return {
+  //   Purchase: data,
+
+  //   trnx_id: String(trnx_id[0]).slice(16),
+  //   purchase_amount: purchase_amount,
+  //   current_balance: new_balance,
+  //   fee_charged: fee_charged,
+  //   to: String(payment_to).slice(7),
+  //   reference: String(reference).substring(11),
+  //   time: String(time),
+  //   date: String(date).substring(3),
+  // };
 };
 
 const send = (data) => {
@@ -120,12 +161,27 @@ const send = (data) => {
   console.log({ reference: String(reference).substring(11) });
   console.log({ time: String(time) });
   console.log({ date: String(date).substring(3) });
+  console.log({
+    to: String(payment_to).includes("-")
+      ? String(payment_to).slice(9)
+      : String(payment_to).slice(7),
+  });
 
-  if (String(payment_to).includes("-")) {
-    return console.log({ to: String(payment_to).slice(9) });
-  }
+  // return {
+  //   Send: data,
 
-  return console.log({ to: String(payment_to).slice(7) });
+  //   trnx_id: String(trnx_id[0]).slice(16),
+  //   send_amount: send_amount,
+  //   current_balance: current_balance,
+  //   available_balance: available_balance,
+  //   fee_charged: fee_charged,
+  //   reference: String(reference).substring(11),
+  //   time: String(time),
+  //   date: String(date).substring(3),
+  //   to: String(payment_to).includes("-")
+  //     ? String(payment_to).slice(9)
+  //     : String(payment_to).slice(7),
+  // };
 };
 
 const check = (data) => {
