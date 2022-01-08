@@ -31,15 +31,22 @@ bot.command("getMember", (ctx) => {
 });
 
 //regex
+//eslint-disable-next-line
 let trxn_id_pattern = /Transaction I(d|D): \d+/gm;
+//eslint-disable-next-line
 let amount_pattern = /GHS ?[0-9]+.[0-9]+?./gm || /GHS.?[0-9]+(.([0-9]+))/gi;
+//eslint-disable-next-line
 let from_pattern =
   /.[0-9]+.?from.?([a-z]+.?[a-z]+.?[a-z]+.?[a-z]+.?[a-z]+.?[a-z]+)/gim;
+//eslint-disable-next-line
 let to_pattern = /\.[0-9]+.?to.?\-?\W?(\w+.?\w+.?\w+.?[A-Zz]+.?)?/gim;
+//eslint-disable-next-line
 let reference_pattern = /Reference:.?\-?(\w+)?.?(\w+)?[0-9]*?-?([0-9]+)?/gim;
+//eslint-disable-next-line
 let date_pattern = /at ([0-9]*\-[0-9]*\-[0-9]* )/gim;
+//eslint-disable-next-line
 let time_pattern = /(([0-9]+\:[0-9]+\:[0-9]+)\.)/gim;
-
+//eslint-disable-next-line
 let messsage_pattern =
   /Message:Interest.?[a-z]+.?(\w+)?.(\w+)?.(\w+)?.([0-9]+)?/g;
 
