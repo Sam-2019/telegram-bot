@@ -120,12 +120,11 @@ const send = (data) => {
   console.log({ reference: String(reference).substring(11) });
   console.log({ time: String(time) });
   console.log({ date: String(date).substring(3) });
-
-  if (String(payment_to).includes("-")) {
-    return console.log({ to: String(payment_to).slice(9) });
-  }
-
-  return console.log({ to: String(payment_to).slice(7) });
+  console.log({
+    to: String(payment_to).includes("-")
+      ? String(payment_to).slice(9)
+      : String(payment_to).slice(7),
+  });
 };
 
 const check = (data) => {
