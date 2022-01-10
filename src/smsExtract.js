@@ -49,34 +49,40 @@ const messsage_pattern =
     // };
   };
 
-const receipt = (data) => {
-  console.log({ Receipt: data });
-  let amounts = data.match(amount_pattern);
-  let receipt_amount = amounts[0];
-  let current_balance = amounts[1];
-  let available_amount = amounts[2] || null;
-  let trnx_id = data.match(trxn_id_pattern);
-  let from = String(data.match(from_pattern)).substring(9);
-  let message = data.match(messsage_pattern);
-
-  console.log({ receipt_amount: receipt_amount });
-  console.log({ current_balance: current_balance });
-  console.log({ available_amount: available_amount });
-  console.log({ trnx_id: String(trnx_id[0]).slice(16) });
-  console.log({ from: String(from).substring(9) });
-  console.log({ message: message ? String(message).substring(8) : null });
-
-  // return {
-  //   Receipt: data,
-
-  //   receipt_amount: receipt_amount,
-  //   current_balance: current_balance,
-  //   available_amount: available_amount,
-  //   trnx_id: String(trnx_id[0]).slice(16),
-  //   from: String(from).substring(9),
-  //   message: message ? String(message).substring(8) : null,
-  // };
-};
+  const receipt = (data) => {
+    console.log({ Receipt: data });
+    let amounts = data.match(amount_pattern);
+  
+    if (amounts === null) {
+      return;
+    }
+  
+    let receipt_amount = amounts[0];
+    let current_balance = amounts[1];
+    let available_amount = amounts[2] || null;
+    let trnx_id = data.match(trxn_id_pattern);
+    let from = data.match(from_pattern);
+    let message = data.match(messsage_pattern);
+  
+    console.log({ receipt_amount: receipt_amount });
+    console.log({ current_balance: current_balance });
+    console.log({ available_amount: available_amount });
+    console.log({ trnx_id: String(trnx_id[0]).slice(16) });
+    console.log({ from: String(from).substring(9) });
+    console.log({ message: message ? String(message).substring(8) : null });
+  
+    // return {
+    // 	Receipt: data,
+  
+    // 	receipt_amount: receipt_amount,
+    // 	current_balance: current_balance,
+    // 	available_amount: available_amount,
+    // 	trnx_id: String(trnx_id[0]).slice(16),
+    // 	from: from ? String(from).substring(9) : null,
+    // 	message: message ? String(message).substring(8) : null,
+    // };
+  };
+  
 
 const purchase = (data) => {
   console.log({ Purchase: data });
