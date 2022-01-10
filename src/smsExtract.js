@@ -18,31 +18,36 @@ const time_pattern = /(([0-9]+\:[0-9]+\:[0-9]+)\.)/gim;
 const messsage_pattern =
   /Message:Interest.?[a-z]+.?(\w+)?.(\w+)?.(\w+)?.([0-9]+)?/g;
 
-const withdrawal = (data) => {
-  console.log({ Withdrawal: data });
-  let trnx_id = data.match(trxn_id_pattern);
-  let amounts = data.match(amount_pattern);
-  let withdrawal_amount = amounts[0];
-  let current_balance = amounts[1];
-  let fee_charged = amounts[2];
-  let payment_to = data.match(to_pattern);
-
-  console.log({ trnx_id: String(trnx_id[0]).slice(16) });
-  console.log({ withdrawal_amount: withdrawal_amount });
-  console.log({ current_balance: current_balance });
-  console.log({ fee_charged: fee_charged });
-  console.log({ to: String(payment_to).slice(7) });
-
-  // return {
-  //   Withdrawal: data,
-
-  //   trnx_id: String(trnx_id[0]).slice(16),
-  //   withdrawal_amount: withdrawal_amount,
-  //   current_balance: current_balance,
-  //   fee_charged: fee_charged,
-  //   to: String(payment_to).slice(7),
-  // };
-};
+  const withdrawal = (data) => {
+    console.log({ Withdrawal: data });
+    let amounts = data.match(amount_pattern);
+  
+    if (amounts === null) {
+      return;
+    }
+  
+    let trnx_id = data.match(trxn_id_pattern);
+    let withdrawal_amount = amounts[0];
+    let current_balance = amounts[1];
+    let fee_charged = amounts[2];
+    let payment_to = data.match(to_pattern);
+  
+    console.log({ trnx_id: String(trnx_id[0]).slice(16) });
+    console.log({ withdrawal_amount: withdrawal_amount });
+    console.log({ current_balance: current_balance });
+    console.log({ fee_charged: fee_charged });
+    console.log({ to: String(payment_to).slice(7) });
+  
+    // return {
+    //   Withdrawal: data,
+  
+    //   trnx_id: String(trnx_id[0]).slice(16),
+    //   withdrawal_amount: withdrawal_amount,
+    //   current_balance: current_balance,
+    //   fee_charged: fee_charged,
+    //   to: String(payment_to).slice(7),
+    // };
+  };
 
 const receipt = (data) => {
   console.log({ Receipt: data });
