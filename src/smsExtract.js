@@ -124,49 +124,49 @@ const messsage_pattern =
     // };
   };
 
-const send = (data) => {
-  console.log({ Send: data });
-  let trnx_id = data.match(trxn_id_pattern);
-  let amounts = data.match(amount_pattern);
-  let send_amount = amounts[0];
-  let current_balance = amounts[1];
-  let available_balance = amounts[2];
-  let fee_charged = amounts[3];
-  let payment_to = data.match(to_pattern);
-  let reference = data.match(reference_pattern);
-  let time = data.match(time_pattern) || null;
-  let date = data.match(date_pattern) || null;
-
-  console.log({ trnx_id: String(trnx_id[0]).slice(16) });
-  console.log({ send_amount: send_amount });
-  console.log({ current_balance: current_balance });
-  console.log({ available_balance: available_balance });
-  console.log({ fee_charged: fee_charged });
-  console.log({ reference: String(reference).substring(11) });
-  console.log({ time: String(time) });
-  console.log({ date: String(date).substring(3) });
-  console.log({
-    to: String(payment_to).includes("-")
-      ? String(payment_to).slice(9)
-      : String(payment_to).slice(7),
-  });
-
-  // return {
-  //   Send: data,
-
-  //   trnx_id: String(trnx_id[0]).slice(16),
-  //   send_amount: send_amount,
-  //   current_balance: current_balance,
-  //   available_balance: available_balance,
-  //   fee_charged: fee_charged,
-  //   reference: String(reference).substring(11),
-  //   time: String(time),
-  //   date: String(date).substring(3),
-  //   to: String(payment_to).includes("-")
-  //     ? String(payment_to).slice(9)
-  //     : String(payment_to).slice(7),
-  // };
-};
+  const send = (data) => {
+    console.log({ Send: data });
+    let amounts = data.match(amount_pattern);
+    let trnx_id = data.match(trxn_id_pattern);
+    let payment_to = data.match(to_pattern);
+    let reference = data.match(reference_pattern);
+    let time = data.match(time_pattern);
+    let date = data.match(date_pattern);
+    let send_amount = amounts[0];
+    let current_balance = amounts[1];
+    let available_balance = amounts[2];
+    let fee_charged = amounts[3];
+  
+    console.log({ trnx_id: String(trnx_id[0]).slice(16) });
+    console.log({ send_amount: send_amount });
+    console.log({ current_balance: current_balance });
+    console.log({ available_balance: available_balance });
+    console.log({ fee_charged: fee_charged });
+    console.log({ reference: String(reference).substring(11) });
+    console.log({ time: String(time) });
+    console.log({ date: String(date).substring(3) });
+    console.log({
+      to: String(payment_to).includes("-")
+        ? String(payment_to).slice(9)
+        : String(payment_to).slice(7),
+    });
+  
+    // return {
+    // 	Send: data,
+  
+    // 	trnx_id: String(trnx_id[0]).slice(16),
+    // 	send_amount: send_amount,
+    // 	current_balance: current_balance,
+    // 	available_balance: available_balance,
+    // 	fee_charged: fee_charged,
+    // 	reference: String(reference).substring(11),
+    // 	time: String(time).length < 8 ? null : String(time),
+    // 	date: String(date).length < 10 ? null : String(date).substring(3).trim(),
+    // 	to: String(payment_to).includes("-")
+    // 		? String(payment_to).slice(9)
+    // 		: String(payment_to).slice(7),
+    // };
+  };
 
 export const check = (data) => {
   if (data.includes("Cash Out")) {
