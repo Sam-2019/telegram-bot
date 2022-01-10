@@ -84,40 +84,45 @@ const messsage_pattern =
   };
   
 
-const purchase = (data) => {
-  console.log({ Purchase: data });
-  let trnx_id = data.match(trxn_id_pattern);
-  let amounts = data.match(amount_pattern);
-  let purchase_amount = amounts[0];
-  let new_balance = amounts[1];
-  let fee_charged = amounts[2];
-  let payment_to = data.match(to_pattern);
-  let reference = data.match(reference_pattern);
-  let time = data.match(time_pattern) || null;
-  let date = data.match(date_pattern) || null;
-
-  console.log({ trnx_id: String(trnx_id[0]).slice(16) });
-  console.log({ purchase_amount: purchase_amount });
-  console.log({ current_balance: new_balance });
-  console.log({ fee_charged: fee_charged });
-  console.log({ to: String(payment_to).slice(7) });
-  console.log({ reference: String(reference).substring(11) });
-  console.log({ time: String(time) });
-  console.log({ date: String(date).substring(3) });
-
-  // return {
-  //   Purchase: data,
-
-  //   trnx_id: String(trnx_id[0]).slice(16),
-  //   purchase_amount: purchase_amount,
-  //   current_balance: new_balance,
-  //   fee_charged: fee_charged,
-  //   to: String(payment_to).slice(7),
-  //   reference: String(reference).substring(11),
-  //   time: String(time),
-  //   date: String(date).substring(3),
-  // };
-};
+  const purchase = (data) => {
+    console.log({ Purchase: data });
+    let amounts = data.match(amount_pattern);
+  
+    if (amounts === null) {
+      return;
+    }
+  
+    let purchase_amount = amounts[0];
+    let new_balance = amounts[1];
+    let fee_charged = amounts[2];
+    let trnx_id = data.match(trxn_id_pattern);
+    let payment_to = data.match(to_pattern);
+    let reference = data.match(reference_pattern);
+    let time = data.match(time_pattern);
+    let date = data.match(date_pattern);
+  
+    console.log({ trnx_id: String(trnx_id[0]).slice(16) });
+    console.log({ purchase_amount: purchase_amount });
+    console.log({ current_balance: new_balance });
+    console.log({ fee_charged: fee_charged });
+    console.log({ to: String(payment_to).slice(7) });
+    console.log({ reference: String(reference).substring(11) });
+    console.log({ time: String(time) });
+    console.log({ date: String(date).substring(3) });
+  
+    // return {
+    // 	Purchase: data,
+  
+    // 	trnx_id: String(trnx_id[0]).slice(16),
+    // 	purchase_amount: purchase_amount,
+    // 	current_balance: new_balance,
+    // 	fee_charged: fee_charged,
+    // 	to: String(payment_to).slice(7),
+    // 	reference: String(reference).substring(11),
+    // 	time: time ? String(time) : null,
+    // 	date: date ? String(date).substring(3).trim() : null,
+    // };
+  };
 
 const send = (data) => {
   console.log({ Send: data });
