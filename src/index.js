@@ -4,7 +4,27 @@ import { check } from "./smsExtract.js";
 import * as dotenv from "dotenv/config";
 import { TOKEN, PORT } from "./config.js";
 
+import { checkAirtelTigo } from "./smsExtract(at)";
+import { checkMTN } from "./smsExtract(mtn)";
+import { checkVodafone } from "./smsExtract(vodafone)";
+
 const { reply, fork } = Telegraf;
+
+const checkNetwork = (data) => {
+  if (data.startsWith("00000")) {
+    return checkVodafone(data);
+  }
+
+  if (
+    data.startsWith("You have withdrawn") ||
+    data.startsWith("Dear Customer") ||
+    data.startsWith("You have received")
+  ) {
+    return checkAirtelTigo(data);
+  }
+
+  return checkMTN(data);
+};
 
 const bot = new Telegraf(TOKEN);
 bot.launch();
@@ -35,7 +55,7 @@ bot.on("text", (ctx) => {
   const smsBody = ctx.message.text;
 
   if (smsBody.length >= 112) {
-    return check(smsBody);
+    return checkNetwork(smsBody);
   }
 
   return ctx.reply("No message");
