@@ -156,7 +156,7 @@ const send = (data) => {
   // };
 };
 
-export const check = (data) => {
+export const checkMTN = (data) => {
   if (data.includes("Cash Out")) {
     return withdrawal(data);
   } else if (data.includes("Payment received") || data.includes("An amount")) {
