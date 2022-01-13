@@ -5,9 +5,7 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ commands ]
-  pull_request:
-    branches: [ develop ]
+    branches: commands
 
 jobs:
   build:
@@ -22,5 +20,3 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
-    - run: |
-          echo "Hello!"
