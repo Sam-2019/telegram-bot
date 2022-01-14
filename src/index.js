@@ -4,9 +4,9 @@ import { check } from "./smsExtract.js";
 import * as dotenv from "dotenv/config";
 import { TOKEN, PORT } from "./config.js";
 
-import { checkAirtelTigo } from "./smsExtract(at)";
-import { checkMTN } from "./smsExtract(mtn)";
-import { checkVodafone } from "./smsExtract(vodafone)";
+import { checkAirtelTigo } from "../smsExtract/airteltigo";
+import { checkMTN } from "../smsExtract/mtn";
+import { checkVodafone } from "../smsExtract/vodafone";
 
 const { reply, fork } = Telegraf;
 
