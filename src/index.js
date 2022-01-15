@@ -7,18 +7,24 @@ import { TOKEN, PORT } from "./config.js";
 import { checkAirtelTigo } from "../smsExtract/airteltigo";
 import { checkMTN } from "../smsExtract/mtn";
 import { checkVodafone } from "../smsExtract/vodafone";
+import {
+  identifier_vodafone,
+  withdarawal_airteltigo,
+  customer_airteltigo,
+  receipt_airteltigo,
+} from "../smsExtract/constants.js";
 
 const { reply, fork } = Telegraf;
 
 const checkNetwork = (data) => {
-  if (data.startsWith("00000")) {
+  if (data.startsWith(identifier_vodafone)) {
     return checkVodafone(data);
   }
 
   if (
-    data.startsWith("You have withdrawn") ||
-    data.startsWith("Dear Customer") ||
-    data.startsWith("You have received")
+    data.startsWith(withdarawal_airteltigo) ||
+    data.startsWith(customer_airteltigo) ||
+    data.startsWith(receipt_airteltigo)
   ) {
     return checkAirtelTigo(data);
   }
