@@ -1,5 +1,6 @@
 const month_year =  /([a-zA-Z]+)-([0-9]+).?BILL/gm  ||   /([a-zA-Z]+-[0-9]+).?BILL/gm  
-const account_name = /(ACC).?(#)\:.?([0-9]+\-[0-9]+\-[0-9]+)/gm
+const account_number = /(ACC).?(#)\:.?([0-9]+\-[0-9]+\-[0-9]+)/gm
+const account_name_and_id = /([A-Z]+ [A-Z]+ [A-Z]+)\-([0-9]+)/gmi
 
 const prev_usage = /PREV+\:.?([0-9]+)/gm
 const new_usage = /NEW+\:.?([0-9]+)/gm
