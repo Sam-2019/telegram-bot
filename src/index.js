@@ -33,9 +33,9 @@ const checkNetwork = (data) => {
   }
 
   if (
-    data.startsWith(service_charge_ecg) ||
-    data.startsWith(prev_acc_ecg) ||
-    data.startsWith(fire_rural_ecg)
+    data.includes(service_charge_ecg) ||
+    data.includes(prev_acc_ecg) ||
+    data.includes(fire_rural_ecg)
   ) {
     return checkECG(data);
   }
