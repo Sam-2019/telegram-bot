@@ -6,11 +6,15 @@ import { TOKEN, PORT } from "./config.js";
 import { checkAirtelTigo } from "./smsExtract/airteltigo";
 import { checkMTN } from "./smsExtract/mtn";
 import { checkVodafone } from "./smsExtract/vodafone";
+import { checkECG } from "./smsExtract/ecg";
 import {
   identifier_vodafone,
   withdarawal_airteltigo,
   customer_airteltigo,
   receipt_airteltigo,
+  service_charge_ecg,
+  prev_acc_ecg,
+  fire_rural_ecg,
 } from "./smsExtract/constants.js";
 
 const { reply, fork } = Telegraf;
@@ -26,6 +30,14 @@ const checkNetwork = (data) => {
     data.startsWith(receipt_airteltigo)
   ) {
     return checkAirtelTigo(data);
+  }
+
+  if (
+    data.startsWith(service_charge_ecg) ||
+    data.startsWith(prev_acc_ecg) ||
+    data.startsWith(fire_rural_ecg)
+  ) {
+    return checkECG(data);
   }
 
   return checkMTN(data);
