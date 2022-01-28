@@ -1,6 +1,9 @@
 //regex
 //eslint-disable-next-line
-const month_year_pattern =
+const month_pattern =
+  /([a-zA-Z]+)-([0-9]+).?BILL/gm || /([a-zA-Z]+-[0-9]+).?BILL/gm;
+//eslint-disable-next-line
+const year_pattern =
   /([a-zA-Z]+)-([0-9]+).?BILL/gm || /([a-zA-Z]+-[0-9]+).?BILL/gm;
 //eslint-disable-next-line
 const account_number_pattern = /(ACC).?(#)\:.?([0-9]+\-[0-9]+\-[0-9]+)/gm;
@@ -31,13 +34,13 @@ const prev_balance_pattern = /PREV.?BAL+\:.?([0-9]+).?([0-9]+)/gm;
 //eslint-disable-next-line
 const balance_due_pattern = /BAL.?DUE+\:.?([0-9]+).?([0-9]+)/gm;
 //eslint-disable-next-line
-const due_by_pattern = /DUE.?BY+\:.?([A-Z]+)/gm;
+const due_by_pattern = /DUE.?BY\:.?(?<day>([0-9]+)\-([a-zA-Z]+)\-([0-9]+))/gm;
 
 export const checkECG = (data) => {
   console.log(data);
 
-  let month = data.match(month_year_pattern);
-  let year = data.match(month_year_pattern);
+  let month = data.match(month_pattern);
+  let year = data.match(year_pattern);
   let account_number = data.match(account_number_pattern);
   let account_name_and_id = data.match(account_name_and_id_pattern);
   let prev_usage = data.match(prev_usage_pattern);
