@@ -33,9 +33,9 @@ const checkNetwork = (data) => {
   }
 
   if (
-    data.startsWith(service_charge_ecg) ||
-    data.startsWith(prev_acc_ecg) ||
-    data.startsWith(fire_rural_ecg)
+    data.includes(service_charge_ecg) ||
+    data.includes(prev_acc_ecg) ||
+    data.includes(fire_rural_ecg)
   ) {
     return checkECG(data);
   }
@@ -61,12 +61,12 @@ bot.command("quit", (ctx) => {
   ctx.reply("Session ended");
 });
 
-bot.command("getMember", (ctx) => {
-  const data = ctx.message.text.slice(11);
-  // console.log(data);
-  // ctx.reply("Enter member's name");
-  // console.log(ctx.message.text);
-});
+// bot.command("getMember", (ctx) => {
+//   const data = ctx.message.text.slice(11);
+//   console.log(data);
+//   ctx.reply("Enter member's name");
+//   console.log(ctx.message.text);
+// });
 
 bot.on("text", (ctx) => {
   const smsBody = ctx.message.text;
