@@ -36,8 +36,9 @@ const prev_balance_pattern = /PREV.?BAL+\:.?([0-9]+).?([0-9]+)/gm;
 const balance_due_pattern = /BAL.?DUE+\:.?([0-9]+).?([0-9]+)/gm;
 //eslint-disable-next-line
 const due_by_pattern = /DUE.?BY\:.?(?<day>([0-9]+)\-([a-zA-Z]+)\-([0-9]+))/gm;
-
+//eslint-disable-next-line
 const number_pattern = /\d+.?\d+.?\d+/g;
+//eslint-disable-next-line
 const billable_period_pattern = /([A-Z]+)-\d+ /g;
 
 export const checkECG = (data) => {
