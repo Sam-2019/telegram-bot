@@ -61,12 +61,12 @@ bot.command("quit", (ctx) => {
   ctx.reply("Session ended");
 });
 
-bot.command("getMember", (ctx) => {
-  const data = ctx.message.text.slice(11);
-  // console.log(data);
-  // ctx.reply("Enter member's name");
-  // console.log(ctx.message.text);
-});
+// bot.command("getMember", (ctx) => {
+//   const data = ctx.message.text.slice(11);
+//   console.log(data);
+//   ctx.reply("Enter member's name");
+//   console.log(ctx.message.text);
+// });
 
 bot.on("text", (ctx) => {
   const smsBody = ctx.message.text;
