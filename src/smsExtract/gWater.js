@@ -41,7 +41,7 @@ const number_pattern = /\d+.?\d+.?\d+/g;
 //eslint-disable-next-line
 const billable_period_pattern = /([A-Z]+)-\d+ /g;
 
-export const checkECG = (data) => {
+export const checkGWater = (data) => {
 
   let billable_period = String(data.match(billable_period_pattern)).trim();
   let digits = data.match(number_pattern);
@@ -49,24 +49,50 @@ export const checkECG = (data) => {
   let account_name = String(data.match(account_name_and_id_pattern)).slice(0, -4);
   let usage_qty = String(data.match(usage_qty_pattern)).substring(6)
 
-  console.log({ bill_period: billable_period });
-  console.log({ account_number: digits[1] });
-  console.log({ account_name: account_name });
-  console.log({ account_id: digits[2] });
+  // console.log({ bill_period: billable_period });
+  // console.log({ account_number: digits[1] });
+  // console.log({ account_name: account_name });
+  // console.log({ account_id: digits[2] });
 
-  console.log({ prev_usage: digits[3] });
-  console.log({ new_usage: digits[4] });
-  console.log({ usage_qty: usage_qty });
-  console.log({ usage_rate: digits[5] });
+  // console.log({ prev_usage: digits[3] });
+  // console.log({ new_usage: digits[4] });
+  // console.log({ usage_qty: usage_qty });
+  // console.log({ usage_rate: digits[5] });
 
-  console.log({ water_charge: digits[6] });
-  console.log({ fire_tax: digits[7] });
-  console.log({ rural_tax: digits[8] });
+  // console.log({ water_charge: digits[6] });
+  // console.log({ fire_tax: digits[7] });
+  // console.log({ rural_tax: digits[8] });
 
-  console.log({ service_charge: digits[9] });
-  console.log({ month_total: digits[10] });
-  console.log({ prev_balance: digits[11] });
-  console.log({ last_paid: digits[12] });
-  console.log({ balance_due: digits[13] });
-  console.log({ due_by: due_by});
+  // console.log({ service_charge: digits[9] });
+  // console.log({ month_total: digits[10] });
+  // console.log({ prev_balance: digits[11] });
+  // console.log({ last_paid: digits[12] });
+  // console.log({ balance_due: digits[13] });
+  // console.log({ due_by: due_by});
+
+
+  return {
+    Bill: data,
+
+    bill_period: billable_period ? billable_period : null,
+    account_number: digits ? digits[1] : null,
+    account_name: account_name ? account_name : null,
+    account_id: digits ? digits[2] : null,
+
+    prev_usage: digits ? digits[3] : null,
+    new_usage: digits ? digits[4] : null,
+    usage_qty: digits ? usage_qty : null,
+    usage_rate: digits ? digits[5] : null,
+
+    water_charge: digits ? digits[6] : null,
+    fire_tax: digits ? digits[7] : null,
+    rural_tax: digits ? digits[8] : null,
+
+    service_charge: digits ? digits[9] : null,
+    month_total: digits ? digits[10] : null,
+    prev_balance: digits ? digits[11] : null,
+    last_paid: digits ? digits[12] : null,
+    balance_due: digits ? digits[13] : null,
+    due_by: due_by ? due_by : null,
+  };
 };
