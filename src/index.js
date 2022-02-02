@@ -6,7 +6,8 @@ import { TOKEN, PORT } from "./config.js";
 import { checkAirtelTigo } from "./smsExtract/airteltigo";
 import { checkMTN } from "./smsExtract/mtn";
 import { checkVodafone } from "./smsExtract/vodafone";
-import { checkGWater } from "./smsExtract/g_water";
+import { checkGWater } from "./smsExtract/gWater";
+import { checkECG } from "./smsExtract/ecg.js";
 import {
   identifier_vodafone,
   withdarawal_airteltigo,
@@ -15,6 +16,7 @@ import {
   service_charge_g_water,
   prev_acc_g_water,
   fire_rural_g_water,
+  ecg_message,
 } from "./smsExtract/constants.js";
 
 const { reply, fork } = Telegraf;
@@ -38,6 +40,10 @@ const checkNetwork = (data) => {
     data.includes(fire_rural_g_water)
   ) {
     return checkGWater(data);
+  }
+
+  if (data.includes(ecg_message)) {
+    return checkECG(data);
   }
 
   return checkMTN(data);
