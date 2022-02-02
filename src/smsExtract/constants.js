@@ -5,3 +5,4 @@ export const receipt_airteltigo = "You have received";
 export const service_charge_g_water = "SERVICE CHARGE";
 export const prev_acc_g_water = "PREV" || "ACC #";
 export const fire_rural_g_water = "1% FIRE" || " 2% RURAL";
+export const ecg_message = "ecg_message";
