@@ -10,3 +10,4 @@ export const ecg_message =
   "Import/Export" ||
   "Meter" ||
   "Credit";
+export const twitter_link = "https://twitter.com";
