@@ -17,7 +17,9 @@ import {
   prev_acc_g_water,
   fire_rural_g_water,
   ecg_message,
+  twitter_link,
 } from "./smsExtract/constants.js";
+import { checkTwiter } from "./smsExtract/twitterlink.js";
 
 const { reply, fork } = Telegraf;
 
@@ -76,6 +78,10 @@ bot.command("quit", (ctx) => {
 
 bot.on("text", (ctx) => {
   const smsBody = ctx.message.text;
+
+  if (smsBody.includes(twitter_link)) {
+    return checkTwiter(smsBody);
+  }
 
   if (smsBody.length >= 112) {
     return checkNetwork(smsBody);
