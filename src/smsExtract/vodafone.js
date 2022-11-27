@@ -29,7 +29,7 @@ const for_name_pattern = /(of).?(\w*)/g;
 const reference_pattern = /Reference:.?[a-z]+/gi;
 
 const withdrawal = (data) => {
-	console.log({ Withdrawal: data });
+	// console.log({ Withdrawal: data });
 
 	let trnx_id = data.match(trxn_id_pattern);
 	let from_number = data.match(from_number_pattern);
@@ -65,7 +65,7 @@ const withdrawal = (data) => {
 };
 
 const receipt = (data) => {
-	console.log({ Receipt: data });
+	// console.log({ Receipt: data });
 
 	let trnx_id = data.match(trxn_id_pattern);
 	let time = data.match(time_pattern);
@@ -102,7 +102,7 @@ const receipt = (data) => {
 };
 
 const purchase = (data) => {
-	console.log({ Purchase: data });
+	// console.log({ Purchase: data });
 
 	let trnx_id = data.match(trxn_id_pattern);
 	let for_number = data.match(for_number_pattern);
@@ -135,7 +135,7 @@ const purchase = (data) => {
 };
 
 const send = (data) => {
-	console.log({ Send: data });
+	// console.log({ Send: data });
 
 	let trnx_id = data.match(trxn_id_pattern);
 	let to_number = data.match(to_number_pattern);
