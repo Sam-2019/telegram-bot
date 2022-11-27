@@ -5,6 +5,9 @@ const name_pattern =
   /Customer:([a-zA-Z]+) ([a-zA-Z]+) ([a-zA-Z]+) ([a-zA-Z]+)/gm;
 
 export const checkECG = (data) => {
+  	// console.log({ Data: data });
+
+
   let numbers = data.match(numbers_pattern);
   let name = String(data.match(name_pattern)).substring(9);
 
