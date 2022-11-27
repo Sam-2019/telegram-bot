@@ -15,7 +15,7 @@ const to_name_pattern = /(to)\b.?([a-z]+).?([a-z]+).?([a-z]+).?([a-z]+).?/gim;
 const to_number_pattern = /(mobile money wallet)\b ([0-9]+)/gim;
 
 const withdrawal = (data) => {
-	console.log({ Withdrawal: data });
+	// console.log({ Withdrawal: data });
 
 	let trnx_id = data.match(trxn_id_pattern);
 	let from = data.match(from_pattern);
@@ -46,7 +46,7 @@ const withdrawal = (data) => {
 };
 
 const receipt = (data) => {
-	console.log({ Receipt: data });
+	// console.log({ Receipt: data });
 
 	let trnx_id = data.match(trxn_id_pattern);
 	let reference_no = data.match(ref_no_pattern);
@@ -76,11 +76,11 @@ const receipt = (data) => {
 };
 
 const purchase = (data) => {
-	console.log({ Purchase: data });
+	// console.log({ Purchase: data });
 };
 
 const send = (data) => {
-	console.log({ Send: data });
+	// console.log({ Send: data });
 
 	let trnx_id = data.match(trxn_id_pattern);
 	let ghipps = data.match(ghipps_pattern);

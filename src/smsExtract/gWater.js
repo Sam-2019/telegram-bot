@@ -42,6 +42,8 @@ const number_pattern = /\d+.?\d+.?\d+/g;
 const billable_period_pattern = /([A-Z]+)-\d+ /g;
 
 export const checkGWater = (data) => {
+  	// console.log({ Data: data });
+
 
   let billable_period = String(data.match(billable_period_pattern)).trim();
   let digits = data.match(number_pattern);
